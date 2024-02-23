@@ -43,6 +43,9 @@
     // Variável global para manipular o passaro
     var passarinho;
 
+    // Adiciona um contador de voltas (adicional while ao fim do código)
+    var contadorVoltas = 0; 
+
     // Pré-carregamento de assets para a cena
     function preload() {
     this.load.image('bg', 'assets/bg_space.png');
@@ -68,6 +71,7 @@
 
     // Define a variável "subindo" como verdadeira, ou seja, como se o pássaro estivesse subindo desde o início
     passarinho.subindo = true;
+
     }
 
     // Atualiza a posição do pássaro
@@ -97,10 +101,18 @@
             passarinho.subindo = !passarinho.subindo; // Inverte o valor da variável "subindo" para mudar a direção do movimento vertical
         }
 
-        if (passarinho.subindo) { // Se o pássaro está subindo...
+        // Se o pássaro está subindo..
+        if (passarinho.subindo) {
             passarinho.y += 5; // Move o elemento para cima
         } else {
             passarinho.y -= 5; // Move o elemento para baixo
+        }
+
+        // Contador de voltas usando while
+        while (passarinho.x === 700 || passarinho.x === 100) {
+            contadorVoltas += 1; // Incrementa a cada vez que atinge um lado
+            console.log("Volta: " + contadorVoltas);
+        //    break; // Impede que o loop while rode infinitamente no mesmo frame
         }
     }
 
