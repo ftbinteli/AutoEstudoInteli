@@ -109,10 +109,10 @@
         }
 
         // Contador de voltas usando while
-        while (passarinho.x === 700 || passarinho.x === 100) {
-            contadorVoltas += 1; // Incrementa a cada vez que atinge um lado
-            console.log("Volta: " + contadorVoltas);
-        //    break; // Impede que o loop while rode infinitamente no mesmo frame
+        while (passarinho.x == 700 || passarinho.x == 100) {
+            contadorVoltas += 1; // Incrementa a cada vez que o pássaro atinge um dos lados
+            console.log("Volta: " + contadorVoltas); // Exibe a mensagem no console com o número de voltas
+            break; // Impede que o loop while rode infinitamente no mesmo frame e trave o jogo na primeira volta
         }
     }
 
