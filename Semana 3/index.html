@@ -46,6 +46,8 @@
         var fogo;
         var plataforma;	
         var moeda;
+        var pontuacao = 0;
+        var placar;
 
         function preload() {
 
@@ -69,10 +71,6 @@
             // adiciona a imagem de fundo ao jogo, posicionando no centro da tela a partir das dimensões definidas anteriormente
             this.add.image(larguraJogo/2, alturaJogo/2, 'background');
 
-            // cria a plataforma e adiciona física a ela
-            plataforma = this.physics.add.staticImage(larguraJogo/2, alturaJogo/2, 'plataforma_tijolo');
-            this.physics.add.collider(alien, plataforma);
-
             // cria o fogo do turbo
             fogo = this.add.sprite(0, 0, 'turbo_nave');
             fogo.setVisible(false);
@@ -84,19 +82,47 @@
             alien.setCollideWorldBounds(true);
 
             // altera o tamanho da área de colisão do alien
-            alien.body.setSize(40, 40, true)
+            // alien.body.setSize(40, 40, true)
+
+            // cria a plataforma e adiciona física a ela
+            plataforma = this.physics.add.staticImage(larguraJogo/2, alturaJogo/2, 'plataforma_tijolo');
+            this.physics.add.collider(alien, plataforma);
+
+            // adiciona uma segunda plataforma  ao lado da primeira
+            // Ajuste o valor de x para posicionar conforme desejado. Por exemplo, para colocar ao lado, você pode adicionar ou subtrair pela largura da plataforma
+            segundaPlataforma = this.physics.add.staticImage((larguraJogo/2) + 160, alturaJogo/2, 'plataforma_tijolo');
+            this.physics.add.collider(alien, segundaPlataforma);
+
 
             // cria a moeda
             moeda = this.physics.add.sprite(larguraJogo/2, 0, 'moeda');
             moeda.setCollideWorldBounds(true);
             moeda.setBounce(0.7);
             this.physics.add.collider(moeda, plataforma);
+            this.physics.add.collider(moeda, segundaPlataforma);
+
+            
 
             // cria um teclado para controlar o alien
             teclado = this.input.keyboard.createCursorKeys();
 
+            // adicionando placar 
+            placar = this.add.text(50, 50, 'Moedas:' + pontuacao, {fontSize:'45px', fill:'#495613'});
 
+            // quando o alien encostar na moeda
+            this.physics.add.overlap(alien, moeda, function(){
+                
+                moeda.setVisible(false); // esconde a moeda
+                
+                var posicaoMoeda_Y = Phaser.Math.RND.between(50 , 650); // gera uma posição aleatória para a moeda
+                moeda.setPosition(posicaoMoeda_Y, 0); // reposiciona a moeda
 
+                pontuacao += 1; // incrementa a pontuação
+                placar.setText('Moedas:' + pontuacao); // atualiza o placar
+
+                moeda.setVisible(true); // exibe a moeda que foi criada
+
+            })
         }
 
         function update() {
