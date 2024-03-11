@@ -37,7 +37,7 @@
 
         function preload() {
             this.load.image('background', 'assets/bg.png');
-            this.load.image('player', 'assets/alienigena.png');
+            this.load.image('player', 'assets/Doodler.png');
             this.load.image('inimigo', 'assets/inimigo.png');
             this.load.image('moeda', 'assets/moeda.png');
             this.load.spritesheet('inimigo', 'assets//SimpleEnemies Bat_Idle Spritesheet.png', { frameWidth: 32, frameHeight: 32 });
@@ -47,6 +47,7 @@
             this.add.image(larguraJogo / 2, alturaJogo / 2, 'background');
             alien = this.physics.add.sprite(larguraJogo / 2, alturaJogo / 2, 'player');
             alien.setCollideWorldBounds(true);
+            alien.setScale(0.15)
 
             this.anims.create({
             key: 'voarInimigo',
